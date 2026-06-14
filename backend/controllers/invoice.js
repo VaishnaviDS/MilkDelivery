@@ -407,7 +407,7 @@ const groupedEntries = Object.values(groupedMap);
             },
             {
               upsert: true,
-              new: true,
+              returnDocument: "after"
             }
           );
 
