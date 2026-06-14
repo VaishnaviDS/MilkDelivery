@@ -1,5 +1,5 @@
 import cron from "node-cron";
-import { cleanOldEntries } from "../utils/cleanupDB.js";
+import { cleanOldEntries } from "../utils/cleanupDb.js";
 import { cleanOldInvoices } from "../utils/cleanupCloudinary.js";
 import { cleanOldInvoicesdb } from "../utils/cleanupInvoices.js";
 
