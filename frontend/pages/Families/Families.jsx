@@ -160,6 +160,12 @@ const Families = () => {
         </tbody>
       </table>
       </div>
+            {selectedFamily && (
+  <EntryModal
+    familyId={selectedFamily}
+    onClose={() => setSelectedFamily(null)}
+  />
+)}
     </div>
   );
 };
