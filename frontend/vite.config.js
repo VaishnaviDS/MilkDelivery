@@ -9,8 +9,8 @@ export default defineConfig({
       registerType: "autoUpdate",
       includeAssets: ["favicon.ico", "icons.png"],
       manifest: {
-        name: "My MERN App",
-        short_name: "MyApp",
+        name: "DairyDesk",
+        short_name: "DairyDesk",
         description: "My MERN Progressive Web App",
         theme_color: "#ffffff",
         background_color: "#ffffff",
