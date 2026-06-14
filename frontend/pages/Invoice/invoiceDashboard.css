@@ -137,6 +137,22 @@
 .no-invoice {
   color: #64748b;
 }
+.download-btn {
+  background: #16a34a;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+}
+
+.download-btn:hover {
+  background: #15803d;
+  transform: translateY(-2px);
+}
+
+.download-btn:active,
+.open-btn:active {
+  transform: scale(0.98);
+}
 
 /* ===================== */
 /* RESPONSIVE */

@@ -286,9 +286,27 @@ ${invoice.pdfUrl}
               Open Invoice
             </a>
 
-            <a href={invoiceUrl} download>
-              Download Invoice
-            </a>
+<button
+  onClick={async () => {
+    const response = await fetch(invoiceUrl);
+    const blob = await response.blob();
+
+    const url = window.URL.createObjectURL(blob);
+
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "invoice.pdf";
+
+    document.body.appendChild(a);
+    a.click();
+
+    a.remove();
+    window.URL.revokeObjectURL(url);
+  }}
+  className="download-btn"
+>
+  Download Invoice
+</button>
           </div>
         </div>
       )}
