@@ -66,6 +66,9 @@ const invoiceSchema = new mongoose.Schema(
     paidAt: {
       type: Date,
     },
+    cloudinaryPublicId: {
+  type: String,
+},
   },
   { timestamps: true }
 );

@@ -15,7 +15,7 @@ export const cleanOldInvoices = async () => {
 
       if (createdAt < sixMonthsAgo) {
         await cloudinary.uploader.destroy(file.public_id, {
-          resource_type: "raw",
+          resource_type: "image",
         });
 
         console.log("🗑 Deleted:", file.public_id);

@@ -360,8 +360,7 @@ const groupedEntries = Object.values(groupedMap);
                   {
                     folder: "invoices",
                     public_id: `invoice_${familyId}_${invoiceIndex}`,
-                    resource_type:
-                      "auto",
+                    resource_type:"image",
                     format: "pdf",
                     overwrite: true,
                   },
@@ -404,6 +403,7 @@ const groupedEntries = Object.values(groupedMap);
                 limitedEntries,
               pdfUrl:
                 result.secure_url,
+                cloudinaryPublicId: result.public_id,
             },
             {
               upsert: true,

@@ -4,6 +4,8 @@ import DailyEntry from "../models/DailyEntry.js";
 import Settings from "../models/Settings.js";
 import jwt from "jsonwebtoken";
 import bcrypt from 'bcryptjs'
+import Invoice from "../models/Invoice.js";
+import cloudinary from "../utils/cloudinary.js";
 
 // 🔑 Generate JWT
 const generateToken = (id) => {
@@ -282,11 +284,81 @@ export const deleteFamily = async (req, res) => {
   try {
     const { id } = req.params;
 
+    console.log("Deleting family:", id);
+
+    const family = await Family.findById(id);
+
+    if (!family) {
+      return res
+        .status(404)
+        .json({ message: "Family not found" });
+    }
+
+    // ==========================
+    // Delete Daily Entries
+    // ==========================
+    const dailyResult = await DailyEntry.deleteMany({
+      family: id,
+    });
+
+    console.log(
+      "Deleted DailyEntry docs:",
+      dailyResult.deletedCount
+    );
+
+    // ==========================
+    // Delete PDFs from Cloudinary
+    // ==========================
+const invoices = await Invoice.find({ family: id });
+
+for (const invoice of invoices) {
+  if (invoice.cloudinaryPublicId) {
+    const deleteResult =
+      await cloudinary.uploader.destroy(
+        invoice.cloudinaryPublicId,
+        {
+          resource_type: "image", // may need to change after Step 1
+        }
+      );
+
+    console.log(
+      "Cloudinary delete result:",
+      deleteResult
+    );
+  }
+}
+
+    // ==========================
+    // Delete Invoice Documents
+    // ==========================
+    const invoiceResult =
+      await Invoice.deleteMany({
+        family: id,
+      });
+
+    console.log(
+      "Deleted Invoice docs:",
+      invoiceResult.deletedCount
+    );
+
+    // ==========================
+    // Delete Family
+    // ==========================
     await Family.findByIdAndDelete(id);
 
-    res.json({ message: "Family deleted" });
+    res.json({
+      message:
+        "Family, entries, invoices and Cloudinary PDFs deleted successfully",
+      deletedDailyEntries:
+        dailyResult.deletedCount,
+      deletedInvoices:
+        invoiceResult.deletedCount,
+    });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    console.log(error);
+    res.status(500).json({
+      message: error.message,
+    });
   }
 };
 
