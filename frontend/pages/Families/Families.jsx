@@ -160,7 +160,11 @@ const Families = () => {
         </tbody>
       </table>
       </div>
+<<<<<<< HEAD
       {selectedFamily && (
+=======
+            {selectedFamily && (
+>>>>>>> 9355e7271d5b50ba72b1fd5a0cbb723d61eeebde
   <EntryModal
     familyId={selectedFamily}
     onClose={() => setSelectedFamily(null)}
